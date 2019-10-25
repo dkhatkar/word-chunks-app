@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import WordChunksForm from './WordChunksForm';
 
 
 class App extends React.Component {
