@@ -1,7 +1,7 @@
 import React from 'react';
 import App from "./App";
 
-class WordChunksForm extends React.Component {
+class WordCountForm extends React.Component {
 
     constructor(props){
         super(props);
@@ -9,58 +9,60 @@ class WordChunksForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showResponse = this.showResponse.bind(this);
         this.state = {
-            chunks : "",
-            status : null,
-            showResponse : false
+            word : "",
+            showResponse : false,
+            response : {responseCode: "", responseMessage: "", word: {word:"", count: 0}}
         };
     }
 
     showResponse(){
+
       if(this.state.showResponse){
-        return <div>Status: {this.state.status}</div>
+        return <div>Count: {this.state.response.word.count}</div>
       }
     }
     async handleSubmit(event){
 
-        var chunks = this.state.chunks;
+        var word = this.state.word;
         var payload ={
-            chunks : chunks
+            word : word
         };
         var  stringifyPayload =  JSON.stringify(payload);
-
         event.preventDefault();
-
         const options = {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: stringifyPayload
         };
 
-        const request = new Request("http://localhost:8070/words/chunks", options);
+        const request = new Request("http://localhost:8090/count/", options);
         const response =  await fetch(request);
-        this.setState({status: response.status});
+        let responseJson = await response.json();
+        this.setState({response: responseJson});
         this.setState({showResponse: true});
     }
     updateValue(event){
-        this.setState({chunks: event.target.value});
+        this.setState({word: event.target.value});
 
     }
     render() {
 
-        return <div><form onSubmit={this.handleSubmit}>
+        return <div>
+            <form onSubmit={this.handleSubmit}>
             <div>
                 <div>
-                    <label>Words:</label>
+                    <label>Word to Find:</label>
                 </div>
                 <div>
-                    <textarea rows="6" cols="50" name="chunks" value={this.state.chunks} onChange={this.updateValue}/>
+                  <input type="text" name="word" value={this.state.word} onChange={this.updateValue}/>
                 </div>
             </div>
             <input type="submit" value="Submit"/>
         </form>
         {this.showResponse()}
         </div>
+
     }
 }
 
-export default WordChunksForm;
+export default WordCountForm;
