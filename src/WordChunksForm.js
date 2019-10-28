@@ -1,5 +1,7 @@
 import React from 'react';
-import App from "./App";
+import Form from 'react-bootstrap/Form'
+import Row from 'react-bootstrap/Row'
+import Button from 'react-bootstrap/Button'
 
 class WordChunksForm extends React.Component {
 
@@ -17,7 +19,7 @@ class WordChunksForm extends React.Component {
 
     showResponse(){
       if(this.state.showResponse){
-        return <div>Status: {this.state.status}</div>
+        return <Row>Status: {this.state.status}</Row>
       }
     }
     async handleSubmit(event){
@@ -47,18 +49,18 @@ class WordChunksForm extends React.Component {
     }
     render() {
 
-        return <div><form onSubmit={this.handleSubmit}>
-            <div>
-                <div>
-                    <label>Words:</label>
-                </div>
-                <div>
-                    <textarea rows="6" cols="50" name="chunks" value={this.state.chunks} onChange={this.updateValue}/>
-                </div>
-            </div>
-            <input type="submit" value="Submit"/>
-        </form>
-        {this.showResponse()}
+        return <div>
+
+            <Form onSubmit={this.handleSubmit}>
+                <Form.Group controlId="chunks" >
+                    <Form.Label>Words:</Form.Label>
+                    <Form.Control as="textarea" name="chunks" rows="6" value={this.state.chunks} onChange={this.updateValue}/>
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>
+            {this.showResponse()}
         </div>
     }
 }

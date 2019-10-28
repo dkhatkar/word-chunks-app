@@ -1,5 +1,6 @@
 import React from 'react';
-import App from "./App";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 class WordCountForm extends React.Component {
 
@@ -48,18 +49,16 @@ class WordCountForm extends React.Component {
     render() {
 
         return <div>
-            <form onSubmit={this.handleSubmit}>
-            <div>
-                <div>
-                    <label>Word to Find:</label>
-                </div>
-                <div>
-                  <input type="text" name="word" value={this.state.word} onChange={this.updateValue}/>
-                </div>
-            </div>
-            <input type="submit" value="Submit"/>
-        </form>
-        {this.showResponse()}
+            <Form onSubmit={this.handleSubmit}>
+                <Form.Group controlId="word" >
+                    <Form.Label>Word to find</Form.Label>
+                    <Form.Control name="word" type="text" value={this.state.word} onChange={this.updateValue}/>
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>
+            {this.showResponse()}
         </div>
 
     }
