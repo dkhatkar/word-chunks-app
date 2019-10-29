@@ -23,7 +23,7 @@ class WordChunksForm extends React.Component {
       }
     }
     async handleSubmit(event){
-
+        this.setState({showResponse: false});
         var chunks = this.state.chunks;
         var payload ={
             chunks : chunks

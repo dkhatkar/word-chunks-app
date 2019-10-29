@@ -12,14 +12,19 @@ class WordCountForm extends React.Component {
         this.state = {
             word : "",
             showResponse : false,
-            response : {responseCode: "", responseMessage: "", word: {word:"", count: 0}}
+            response : {responseCode: "", responseMessage: "", word: {word:"", count: 0, createdDateTime: null, updatedDateTime: null}}
         };
     }
 
     showResponse(){
 
       if(this.state.showResponse){
-        return <div>Count: {this.state.response.word.count}</div>
+        if({this.state.response.word.count} == 0){
+          return <div>Word doesn't exist</div>
+        }
+        else{
+          return <div>Count: {this.state.response.word.count} Created: {this.state.response.word.createdDateTime} Updated: {this.state.response.word.updatedDateTime}</div>
+        }
       }
     }
     async handleSubmit(event){
