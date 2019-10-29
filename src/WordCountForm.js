@@ -19,7 +19,7 @@ class WordCountForm extends React.Component {
     showResponse(){
 
       if(this.state.showResponse){
-        if({this.state.response.word.count} == 0){
+        if(this.state.response.word.count === 0){
           return <div>Word doesn't exist</div>
         }
         else{
